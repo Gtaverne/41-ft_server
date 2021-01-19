@@ -15,36 +15,37 @@ RUN apt-get update -y && apt-get install -y \
 # PHP
 RUN apt-get install -y \
 	php7.3 \
-	php-mysql \
+	php7.3-mysql \
 	php7.3-fpm \
-	php-mysql \
-	php-curl \
-	php-gd \
-	php-intl \
-	php-mbstring \
-	php-soap \
-	php-xml \
-	php-xmlrpc \
-	php-zip
+	php7.3-curl \
+	php7.3-gd \
+	php7.3-intl \
+	php7.3-mbstring \
+	php7.3-soap \
+	php7.3-xml \
+	php7.3-xmlrpc \
+	php7.3-zip
 
-RUN mkdir /var/www/rush42 && touch /var/www/rush42/index.php
+#To enable auto-index by default
+ENV auto-index=on
 
-# Wordpress
-RUN cd ./tmp/ && wget http://wordpress.org/latest.tar.gz && \
-tar xfvz latest.tar.gz && mv wordpress ../var/www/rush42/wordpress && cd 
-
-# PHP My admin
-RUN cd ./var/www/rush42/ && wget https://files.phpmyadmin.net/phpMyAdmin/5.0.1/phpMyAdmin-5.0.1-english.tar.gz && tar -xf phpMyAdmin-5.0.1-english.tar.gz && rm -rf phpMyAdmin-5.0.1-english.tar.gz
-
-
-#conf
-COPY srcs/default ~/etc/nginx/sites-available/rush42
+#Onboard in the container all the useful sources
+COPY srcs/nginx_conf .
 COPY srcs/run.sh .
+COPY srcs/config.inc.php .
+COPY srcs/wp-config.php .
 CMD bash run.sh && bash
 
 
 # Mariadb
 
+#Useful commands
 
+#to remove an old image
+#docker rmi -f my_image
 
+#to build the image
+#docker build -t ftserverimage
+#to start my container once the image is built
+#docker run --rm --name my_container -it -p 8080:80 -p 443:443 ftserverimage
 
