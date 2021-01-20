@@ -1,5 +1,6 @@
 <?php
 /**
+ * Il s'agit d'un template assez standard complété avec les keys nécessaires
  * Custom WordPress configurations on "wp-config.php" file.
  *
  * This file has the following configurations: MySQL settings, Table Prefix, Secret Keys, WordPress Language, ABSPATH and more.

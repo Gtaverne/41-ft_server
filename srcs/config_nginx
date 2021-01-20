@@ -22,6 +22,7 @@ server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 	server_name rush42;
+	#301 permet de renvoyer vers le port 443, afin de bloquer l'acces en http
 	return 301 https://$host$request_uri;
 }
 
@@ -37,6 +38,7 @@ server {
 	root /var/www/rush42;
 
 	# Add index.php to the list if you are using PHP, important pour l'autoindex
+	# Notamment index.nginx-debian.html, qui n'est pas dans la plupart des templates
 	index index.html index.htm index.nginx-debian.html index.php;
 
 	location / {
