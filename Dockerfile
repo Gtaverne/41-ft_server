@@ -9,7 +9,8 @@ RUN apt-get update -y && apt-get install -y \
 		nginx \
 		openssl \
 		mariadb-server \
-		mariadb-client
+		mariadb-client \
+		gettext-base
 
 
 # PHP
@@ -27,17 +28,15 @@ RUN apt-get install -y \
 	php7.3-zip
 
 #To enable auto-index by default
-ENV auto-index=on
+ENV auto_index=on
 
 #Onboard in the container all the useful sources
-COPY srcs/nginx_conf .
+COPY srcs/config_nginx .
 COPY srcs/run.sh .
 COPY srcs/config.inc.php .
 COPY srcs/wp-config.php .
-CMD bash run.sh && bash
+CMD bash run.sh && echo "WELCOME ON BOARD\n" && bash
 
-
-# Mariadb
 
 #Useful commands
 

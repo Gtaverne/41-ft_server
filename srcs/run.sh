@@ -22,15 +22,15 @@ mv ../../../config.inc.php phpmyadmin/. && cd && cd ..
 
 #config ssl
 mkdir /etc/nginx/ssl
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/localhost.key -out /etc/nginx/ssl/localhost.pem -subj "/C=FR"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/localhost.key -out /etc/nginx/ssl/localhost.pem -subj "/C=FR/ST=Paris/L=Paris/O=42Paris/OU=gtaverne/CN=localhost"
 
-#Autoindexation
-envsubst '${auto-index}' < config_nginx > default && rm config_nginx
+#Autoindexation et deplacement du fichier de config
+envsubst '${auto_index}' < config_nginx > default && rm config_nginx
 mv default etc/nginx/sites-available/default
 
 #Server boot
 service nginx start
-# Mysql boot
+# Mysql reboot
 service mysql restart
 # PHP boot
 service php7.3-fpm start
